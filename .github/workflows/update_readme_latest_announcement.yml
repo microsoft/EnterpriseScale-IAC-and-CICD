@@ -35,7 +35,7 @@ jobs:
           $title = "${{ steps.get-announcement.outputs.title }}"
           $url = "${{ steps.get-announcement.outputs.url }}"
           $content = Get-Content README.md
-          $newContent = $content -replace "(?s)(<!-- announcement-start -->).*?(<!-- announcement-end -->)", "`$1`n> [!IMPORTANT]`n>`n> **Latest Announcement:** [$title](#$url)`n`$2"
+          $newContent = $content -replace "(?s)<!-- announcement-start -->.*?<!-- announcement-end -->", "`$1`n> [!IMPORTANT]`n>`n> **Latest Announcement:** [$title](#$url)`n`$2"
           $newContent | Set-Content README.md
           git config --local user.email "paullizer@microsoft.com"
           git config --local user.name "Paul Lizer"
