@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "storageAccountName": {
-            "value": "examplestorageaccount"
+            "value": "storageaccountname"
         },
         "resourceGroupName": {
             "value": "resource_group_name"
@@ -15,6 +15,6 @@
             "value": "subscription_id"
         },
         "templateFilePath": {
-            "value": "folder/to/template.json"}
+            "value": "templates/storage_accounts/storage_account-default.json"}
     }
 }
