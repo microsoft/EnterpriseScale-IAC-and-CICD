@@ -2,12 +2,11 @@ name: Update README with Latest Announcement
 
 on:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '*/5 * * * *' # Runs every 5 minutes
 
 permissions:
   contents: write
       
-
 jobs:
   update-readme:
     runs-on: windows-latest
