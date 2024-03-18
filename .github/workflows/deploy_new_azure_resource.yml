@@ -2,7 +2,7 @@ name: Deploy New Azure Resource
 on:
   push:
     paths:
-      - 'azure_resources/storage_accounts/**'
+      - 'azure_resources/**'
 
 permissions: write-all
 
@@ -29,7 +29,7 @@ jobs:
           
             # Loop through each line of diffOutput
             foreach ($line in $diffOutput -split "`n") {
-              if ($line -match 'storage_accounts/') {
+              if ($line -match 'azure_resources/') {
                 $addedOrUpdatedFiles += $line
               }
             }
@@ -40,7 +40,7 @@ jobs:
               echo "fileName=$fileName" >> $env:GITHUB_OUTPUT
               echo "File Name: $fileName"
             } else {
-              echo "No new or updated files in 'storage_accounts/'"
+              echo "No new or updated files in 'azure_resources/'"
               echo "Exiting action as no relevant changes were detected."
               exit 0 # Exits the script successfully, indicating no need for further action
             }
@@ -66,4 +66,3 @@ jobs:
           run: |
             echo "File name: $env:FILE_NAME"
             .\deployment_scripts\deploy-resource.ps1 -fileName $env:FILE_NAME
-
