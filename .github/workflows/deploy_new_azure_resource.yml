@@ -1,14 +1,14 @@
-name: Deploy Storage Account
+name: Deploy New Azure Resource
 on:
   push:
     paths:
-      - 'deployed_resources/storage_accounts/**'
+      - 'azure_resources/storage_accounts/**'
 
 permissions: write-all
 
 jobs:
-    job1:
-      name: Run PowerShell Script
+    FindNewParameterFilesJob:
+      name: Find New Parameter Files
       runs-on: windows-latest
       outputs:
         fileName: ${{ steps.findfile.outputs.fileName }}
@@ -17,7 +17,7 @@ jobs:
           with:
             fetch-depth: 0  # Fetches the commit history to compare changes
 
-        - name: Find Added or Updated File
+        - name: Search Git Diff for New Parameter Files
           id: findfile
           shell: pwsh
           run: |
@@ -46,24 +46,24 @@ jobs:
             }
           
 
-    job2:
-      needs: job1
-      name: Run PowerShell Script
+    DeployNewAzureResourceJob:
+      needs: FindNewParameterFilesJob
+      name: Deploy Azure Resource
       runs-on: windows-latest
       steps:
 
         - uses: actions/checkout@v4
           with:
             fetch-depth: 0  # Fetches the commit history to compare changes        
-        - name: Script
+        - name: Run Deploy Azure Resource PowerShell Script
           shell: pwsh
           env:
             CLIENT_ID: ${{ secrets.CLIENT_ID }}
             CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
             SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
             TENANT_ID: ${{ secrets.TENANT_ID }}
-            FILE_NAME: ${{ needs.job1.outputs.fileName }}
+            FILE_NAME: ${{ needs.FindNewParameterFilesJob.outputs.fileName }}
           run: |
             echo "File name: $env:FILE_NAME"
-            .\deployment_scripts\storage_accounts\create-storage.ps1 -fileName $env:FILE_NAME
+            .\deployment_scripts\deploy-resource.ps1 -fileName $env:FILE_NAME
 
