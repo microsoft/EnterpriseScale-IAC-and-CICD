@@ -1,4 +1,7 @@
-<!-- announcement-start --><!-- announcement-end -->
+<!-- announcement-start -->
+## Latest Announcement
+@{title=Laying the Foundations; url=https://github.com/microsoft/EnterpriseScale-IAC-and-CICD/discussions/3}
+<!-- announcement-end -->
 
 # Enterprise-Scale IAC and CI/CD
 
