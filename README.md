@@ -30,13 +30,13 @@ Words
 
 ### Registered Application
 
-![GitHub Repository Secrets](images\GitHub-Repository-Secrets.png)
+![GitHub Repository Secrets](images/GitHub-Repository-Secrets.png)
 
-![Update GitHub Repository Secrets](images\Update-GitHub-Repository-Secrets.png)
+![Update GitHub Repository Secrets](images/Update-GitHub-Repository-Secrets.png)
 
 ### Permissions
 
-![Permissions](images\Permissions.png)
+![Permissions](images/Permissions.png)
 
 Example Scenarios
 
@@ -44,6 +44,6 @@ Storage Account
 
 
 
-![Execution of GitHub Action to Create a Storage Account](.\images\Create-Storage-Account-Example)
+![Execution of GitHub Action to Create a Storage Account](images/Create-Storage-Account-Example)
 
-![Details of the Deployment Job to Create a Storage Account](images\Create-Storage-Account-Example-Deployment-Details)
+![Details of the Deployment Job to Create a Storage Account](images/Create-Storage-Account-Example-Deployment-Details)
