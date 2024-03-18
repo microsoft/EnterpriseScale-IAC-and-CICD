@@ -2,7 +2,7 @@ name: Update README with Latest Announcement
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # Runs every 5 minutes
+    - cron: '0 3 * * *' # Runs daily at 3:00 AM UTC
 
 permissions:
   contents: write
