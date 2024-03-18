@@ -2,7 +2,7 @@ name: Update README with Latest Announcement
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # Runs every 5 minutes.
+    - cron: "*/5 * * * *" # Runs every 5 minutes.
 
 jobs:
   update-readme:
@@ -23,14 +23,16 @@ jobs:
           $announcementText = $latestAnnouncement.title + " - " + $latestAnnouncement.url
           echo "announcement=$latestAnnouncement" >> $env:GITHUB_OUTPUT
 
-
       - name: Update README
         shell: pwsh
         run: |
+          echo "Announcement: ${{ steps.get-announcement.outputs.announcement }}"
           $announcement = "${{ steps.get-announcement.outputs.announcement }}"
           $content = Get-Content README.md
           $newContent = $content -replace "(?s)(<!-- announcement-start -->).*?(<!-- announcement-end -->)", "`$1`n## Latest Announcement`n$announcement`n`$2"
           $newContent | Set-Content README.md
+          git config --local user.email "paullizer@microsoft.com"
+          git config --local user.name "Paul Lizer"
           git add README.md
           git commit -m "Update README with the latest announcement"
           git push
