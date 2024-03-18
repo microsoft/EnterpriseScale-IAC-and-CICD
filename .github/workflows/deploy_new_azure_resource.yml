@@ -2,7 +2,7 @@ name: Deploy New Azure Resource
 on:
   push:
     paths:
-      - 'azure_resources/**'
+      - 'azure_resources/**/*'
 
 permissions: write-all
 
