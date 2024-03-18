@@ -17,26 +17,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: pwsh
         run: |
-          $headers = @{
-            Authorization = "bearer $env:GITHUB_TOKEN"
-          }
-          $query = @{
-            query = @"
-              query {
-                repository(owner: "microsoft", name: "EnterpriseScale-IAC-and-CICD") {
-                  discussions(first: 1, orderBy: {field: CREATED_AT, direction: DESC}, categoryId: "41433306") {
-                    nodes {
-                      title
-                      url
-                    }
-                  }
-                }
-              }
-            "@
-          }
-          $response = Invoke-RestMethod -Uri 'https://api.github.com/graphql' -Method POST -Body ($query | ConvertTo-Json) -Headers $headers
+          $query = 'query { repository(owner: "microsoft", name: "EnterpriseScale-IAC-and-CICD") { discussions(first: 1, orderBy: {field: CREATED_AT, direction: DESC}) { nodes { title url } } } }'
+          $response = Invoke-RestMethod -Uri 'https://api.github.com/graphql' -Method POST -Headers @{Authorization = "bearer $env:GITHUB_TOKEN"} -ContentType "application/json" -Body (ConvertTo-Json -Compress -InputObject @{query = $query})
           $latestAnnouncement = $response.data.repository.discussions.nodes[0]
-          $announcementText = "$($latestAnnouncement.title) - $($latestAnnouncement.url)"
+          $announcementText = $latestAnnouncement.title + " - " + $latestAnnouncement.url
           echo "announcement=$latestAnnouncement" >> $env:GITHUB_OUTPUT
 
 
