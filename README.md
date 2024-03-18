@@ -1,7 +1,10 @@
 <!-- announcement-start -->
 > [!IMPORTANT]
 >
-> **Latest Announcement:** [Laying the Foundations](#https://github.com/microsoft/EnterpriseScale-IAC-and-CICD/discussions/3)
+> **Latest Announcement:**
+>
+
+[Laying the Foundations](#https://github.com/microsoft/EnterpriseScale-IAC-and-CICD/discussions/3)
 
 <!-- announcement-end -->
 
