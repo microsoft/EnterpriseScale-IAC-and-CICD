@@ -1,3 +1,6 @@
+<!-- announcement-start -->
+<!-- announcement-end -->
+
 # Enterprise-Scale IAC and CI/CD
 
 > [!NOTE]
