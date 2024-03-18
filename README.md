@@ -12,6 +12,7 @@ Tailored for large-scale operations, Enterprise-Scale IaC and CI/CD provides adv
 2. [Why](#Why)
 3. [How to use](#How to Use)
 4. [Implementation](#Implementation)
+5. Example Scenario
 
 ## Overview
 
@@ -36,3 +37,13 @@ Words
 ### Permissions
 
 ![Permissions](.\images\Permissions.png)
+
+Example Scenarios
+
+Storage Account
+
+
+
+![Execution of GitHub Action to Create a Storage Account](.\images\Create-Storage-Account-Example)
+
+![Details of the Deployment Job to Create a Storage Account](.\images\Create-Storage-Account-Example-Deployment-Details)
