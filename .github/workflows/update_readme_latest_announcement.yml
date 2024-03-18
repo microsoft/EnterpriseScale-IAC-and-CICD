@@ -21,7 +21,7 @@ jobs:
         shell: pwsh
         run: |
           $query = 'query { repository(owner: "microsoft", name: "EnterpriseScale-IAC-and-CICD") { discussions(first: 1, orderBy: {field: CREATED_AT, direction: DESC}) { nodes { title url } } } }'
-          $response = Invoke-RestMethod -Uri 'https://api.github.com/graphql' -Method POST  -ContentType "application/json" -Body (ConvertTo-Json -Compress -InputObject @{query = $query})
+          $response = Invoke-RestMethod -Uri 'https://api.github.com/graphql' -Method POST -Headers @{Authorization = "bearer $env:GITHUB_TOKEN"}  -ContentType "application/json" -Body (ConvertTo-Json -Compress -InputObject @{query = $query})
           $latestAnnouncement = $response.data.repository.discussions.nodes[0]
           $titleText = $latestAnnouncement.title
           $urlText = $latestAnnouncement.url
