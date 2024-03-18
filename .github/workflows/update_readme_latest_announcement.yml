@@ -4,8 +4,6 @@ on:
   schedule:
     - cron: '*/5 * * * *' # Runs every 5 minutes.
 
-permissions: write-all
-
 jobs:
   update-readme:
     runs-on: windows-latest
@@ -20,12 +18,27 @@ jobs:
         shell: pwsh
         run: |
           $headers = @{
-            "Authorization" = "token $env:GITHUB_TOKEN"
+            Authorization = "bearer $env:GITHUB_TOKEN"
           }
-          $uri = "https://api.github.com/repos/${{ github.repository }}/discussions?per_page=1"
-          $response = Invoke-RestMethod -Uri $uri -Headers $headers
-          $latestAnnouncement = "${response[0].title} - ${response[0].html_url}"
+          $query = @{
+            query = @"
+              query {
+                repository(owner: "microsoft", name: "EnterpriseScale-IAC-and-CICD") {
+                  discussions(first: 1, orderBy: {field: CREATED_AT, direction: DESC}, categoryId: "41433306") {
+                    nodes {
+                      title
+                      url
+                    }
+                  }
+                }
+              }
+            "@
+          }
+          $response = Invoke-RestMethod -Uri 'https://api.github.com/graphql' -Method POST -Body ($query | ConvertTo-Json) -Headers $headers
+          $latestAnnouncement = $response.data.repository.discussions.nodes[0]
+          $announcementText = "$($latestAnnouncement.title) - $($latestAnnouncement.url)"
           echo "announcement=$latestAnnouncement" >> $env:GITHUB_OUTPUT
+
 
       - name: Update README
         shell: pwsh
