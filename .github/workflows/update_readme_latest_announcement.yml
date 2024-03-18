@@ -2,7 +2,7 @@ name: Update README with Latest Announcement
 
 on:
   schedule:
-    - cron: "*/5 * * * *" # Runs every 5 minutes.
+    - cron: '0 3 * * *'
 
 permissions:
   contents: write
@@ -22,18 +22,21 @@ jobs:
         shell: pwsh
         run: |
           $query = 'query { repository(owner: "microsoft", name: "EnterpriseScale-IAC-and-CICD") { discussions(first: 1, orderBy: {field: CREATED_AT, direction: DESC}) { nodes { title url } } } }'
-          $response = Invoke-RestMethod -Uri 'https://api.github.com/graphql' -Method POST -Headers @{Authorization = "bearer $env:GITHUB_TOKEN"} -ContentType "application/json" -Body (ConvertTo-Json -Compress -InputObject @{query = $query})
+          $response = Invoke-RestMethod -Uri 'https://api.github.com/graphql' -Method POST  -ContentType "application/json" -Body (ConvertTo-Json -Compress -InputObject @{query = $query})
           $latestAnnouncement = $response.data.repository.discussions.nodes[0]
-          $announcementText = $latestAnnouncement.title + " - " + $latestAnnouncement.url
-          echo "announcement=$latestAnnouncement" >> $env:GITHUB_OUTPUT
+          $titleText = $latestAnnouncement.title
+          $urlText = $latestAnnouncement.url
+          echo "title=$titleText" >> $env:GITHUB_OUTPUT
+          echo "url=$urlText" >> $env:GITHUB_OUTPUT
 
       - name: Update README
         shell: pwsh
         run: |
-          echo "Announcement: ${{ steps.get-announcement.outputs.announcement }}"
-          $announcement = "${{ steps.get-announcement.outputs.announcement }}"
+          echo "Announcement: ${{ steps.get-announcement.outputs.title }} - ${{ steps.get-announcement.outputs.url }}"
+          $title = "${{ steps.get-announcement.outputs.title }}"
+          $url = "${{ steps.get-announcement.outputs.url }}"
           $content = Get-Content README.md
-          $newContent = $content -replace "(?s)(<!-- announcement-start -->).*?(<!-- announcement-end -->)", "`$1`n## Latest Announcement`n$announcement`n`$2"
+          $newContent = $content -replace "(?s)(<!-- announcement-start -->).*?(<!-- announcement-end -->)", "`$1`n> [!IMPORTANT]`n>`n> **Latest Announcement:** [$title](#$url)`n`$2"
           $newContent | Set-Content README.md
           git config --local user.email "paullizer@microsoft.com"
           git config --local user.name "Paul Lizer"
