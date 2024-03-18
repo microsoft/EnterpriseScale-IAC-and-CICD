@@ -96,6 +96,6 @@ Create Video of the workflow
 
 ### Storage Account
 
-![Execution of GitHub Action to Create a Storage Account](images/Create-Storage-Account-Example)
+![Execution of GitHub Action to Create a Storage Account](images/Create-Storage-Account-Example.png)
 
-![Details of the Deployment Job to Create a Storage Account](images/Create-Storage-Account-Example-Deployment-Details)
+![Details of the Deployment Job to Create a Storage Account](images/Create-Storage-Account-Example-Deployment-Details.png)
