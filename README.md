@@ -1,4 +1,8 @@
-<!-- announcement-start --><!-- announcement-end -->
+$1
+> [!IMPORTANT]
+>
+> **Latest Announcement:** [Laying the Foundations](#https://github.com/microsoft/EnterpriseScale-IAC-and-CICD/discussions/3)
+$2
 
 # Enterprise-Scale IAC and CI/CD
 
