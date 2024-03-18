@@ -4,8 +4,10 @@ on:
     paths:
       - 'azure_resources/**/*'
 
-permissions: write-all
-
+permissions:
+  contents: read
+  issues: write
+      
 jobs:
     FindNewParameterFilesJob:
       name: Find New Parameter Files
