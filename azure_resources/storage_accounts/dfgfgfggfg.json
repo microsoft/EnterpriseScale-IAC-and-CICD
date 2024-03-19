@@ -1,0 +1,20 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountName": {
+            "value": "storageaccountname"
+        },
+        "resourceGroupName": {
+            "value": "resource_group_name"
+        },
+        "location": {
+            "value": "location_name"
+        },
+        "subscriptionId": {
+            "value": "subscription_id"
+        },
+        "templateFilePath": {
+            "value": "templates/storage_accounts/storage_account-default.json"}
+    }
+}
